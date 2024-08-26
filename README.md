@@ -1,4 +1,4 @@
-# SDET Project - Automotive Domain
+# SDET Project - Ecom Domain
 
 Hi, I’m Sathvik, an SDET in the automotive domain. 
 This project demonstrates a Hybrid Framework with Page Object Model (POM) using Selenium. 

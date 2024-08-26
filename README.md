@@ -32,7 +32,7 @@ The plan is to Dockerize the framework and run it on AWS. Here’s what it cover
 
 
 To build run :sh Runner
-![Uploading Screenshot 2024-08-27 at 12.29.44 AM.png…]()
+<img width="707" alt="Screenshot 2024-08-27 at 12 29 44 AM" src="https://github.com/user-attachments/assets/55bd9741-2cb7-40ec-9d93-060d954b66c6">
 
 ## Getting Started
 

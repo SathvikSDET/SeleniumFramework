@@ -1,5 +1,7 @@
 package Tests;
 
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -15,7 +17,7 @@ public class T003_CurrencyCheck extends BaseClass {
 		this.currency = CurrencyFactory.get(currency, driver);
 		this.currency.setCurrency();
 		System.out.println("Currency type : "+currency);
-		Assert.assertTrue(this.currency.checkPriceChange());
+		AssertJUnit.assertTrue(this.currency.checkPriceChange());
 		
 
 	}

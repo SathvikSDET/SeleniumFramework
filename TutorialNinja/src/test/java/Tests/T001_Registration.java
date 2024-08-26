@@ -32,8 +32,6 @@ public class T001_Registration extends BaseClass{
 		
 		regpage.setPassword(password);
 		regpage.setPasswordConfirm(password);
-		System.out.println("Email "+ email);
-		System.out.println("Password "+password);
 		
 		regpage.checkPolicy();
 		regpage.setSubscribeRadio();

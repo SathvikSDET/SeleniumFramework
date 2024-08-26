@@ -31,6 +31,9 @@ The plan is to Dockerize the framework and run it on AWS. Here’s what it cover
 - Docker
 
 
+To build run :sh Runner
+![Uploading Screenshot 2024-08-27 at 12.29.44 AM.png…]()
+
 ## Getting Started
 
 1. **Clone the Repo:**

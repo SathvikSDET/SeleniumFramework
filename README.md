@@ -20,6 +20,17 @@ The plan is to Dockerize the framework and run it on AWS. Here’s what it cover
 - **Dockerize:** Containerize the framework using Docker.
 - **AWS Deployment:** Run Docker containers on AWS.
 
+
+## Requirements
+- Java 11+
+- Maven
+- Selenium WebDriver
+- TestNG
+- Extent Reports
+- Log4j2
+- Docker
+
+
 ## Getting Started
 
 1. **Clone the Repo:**

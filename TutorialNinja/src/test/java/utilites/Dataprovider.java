@@ -29,6 +29,14 @@ public class Dataprovider {
 		}
 	}
 	return logindata;//returning two dimension array
-}
+	}
 
+	@DataProvider(name="CurrecyData")
+	 public Object[] getDataCurrency(){
+	        return new Object[]{
+	                "USD","GBP","EUR"
+	                
+	        };
+	    }
+	
 }

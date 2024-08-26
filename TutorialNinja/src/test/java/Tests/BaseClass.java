@@ -1,12 +1,9 @@
 package Tests;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Properties;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.OutputType;
@@ -17,6 +14,11 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
+import pageObjects.common.currency.CurrencyConfig;
+import pageObjects.common.currency.CurrencyFactory;
+
+
+
 public class BaseClass {
 	
 	
@@ -25,14 +27,15 @@ public ChromeOptions options;
 
 	
 	@BeforeClass
-	public void setup() throws IOException
+	public void setup() throws IOException, InterruptedException
 	{
 		
-		//options =new ChromeOptions();
-		//options.addArguments("--headless");
+	
+		/*
+		 * this.options =new ChromeOptions(); this.options.addArguments("--headless");
+		 */
 		driver=new ChromeDriver();
 		driver.manage().deleteAllCookies();	
-	
 		driver.get("https://tutorialsninja.com/demo");
 		driver.manage().window().maximize();
 	}

@@ -13,12 +13,13 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
 
 import pageObjects.common.currency.CurrencyConfig;
 import pageObjects.common.currency.CurrencyFactory;
 
 
-
+@Listeners(utilites.ExtentReportManager.class)
 public class BaseClass {
 	
 	
@@ -27,6 +28,7 @@ public ChromeOptions options;
 
 	
 	@BeforeClass
+	
 	public void setup() throws IOException, InterruptedException
 	{
 		

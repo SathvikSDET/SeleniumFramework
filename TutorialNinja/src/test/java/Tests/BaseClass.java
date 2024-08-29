@@ -2,21 +2,22 @@ package Tests;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Properties;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
-
-import pageObjects.common.currency.CurrencyConfig;
-import pageObjects.common.currency.CurrencyFactory;
 
 
 @Listeners(utilites.ExtentReportManager.class)
@@ -25,21 +26,26 @@ public class BaseClass {
 	
 public WebDriver driver;
 public ChromeOptions options;
+public Properties p;
 
 	
 	@BeforeClass
 	
 	public void setup() throws IOException, InterruptedException
-	{
-		
-	
-		/*
-		 * this.options =new ChromeOptions(); this.options.addArguments("--headless");
-		 */
-		driver=new ChromeDriver();
-		driver.manage().deleteAllCookies();	
-		driver.get("https://tutorialsninja.com/demo");
-		driver.manage().window().maximize();
+	{ DesiredCapabilities capabilities = new DesiredCapabilities();
+  
+    capabilities.setBrowserName("chrome");
+    capabilities.setPlatform(Platform.MAC);
+
+    try {
+        driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capabilities);
+    } catch (Exception e) {
+        e.printStackTrace();
+        throw new RuntimeException("Failed to initialize WebDriver", e);
+    }       
+    driver.manage().deleteAllCookies();
+    driver.get("https://tutorialsninja.com/demo");
+    driver.manage().window().maximize();
 	}
 	
 	@AfterClass

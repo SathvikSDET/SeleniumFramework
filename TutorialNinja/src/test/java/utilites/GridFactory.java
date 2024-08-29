@@ -1,98 +1,95 @@
 package utilites;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
-
-import com.google.common.base.Predicate;
-
-import io.opentelemetry.internal.shaded.jctools.queues.MessagePassingQueue.Consumer;
-import pageObjects.common.currency.CurrencyConfig;
-import pageObjects.common.currency.DollerCurrency;
-import pageObjects.common.currency.EuroCurrency;
-import pageObjects.common.currency.PoundCurrency;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.safari.SafariDriver;
 
 public class GridFactory {
 
-	public static WebDriver driver;
-	/*
-	 * //capabilities.setPlatform(Platform.WIN11); public static final
-	 * BiConsumer<String,String> CHROME = (env,brw)->{ Predicate<String> isChrome =
-	 * (browser) -> "chrome".equalsIgnoreCase(browser); Predicate<String> isLocal =
-	 * (environment) -> "local".equalsIgnoreCase(environment);
-	 * 
-	 * if (isLocal.test(env) && isChrome.test(brw)){ new ChromeDriver(); } else {
-	 * DesiredCapabilities capabilities = new DesiredCapabilities();
-	 * capabilities.setPlatform(Platform.WIN11); } /*
-	 * 
-	 * { if(env.equals("local")) { new ChromeDriver(); }else { DesiredCapabilities
-	 * capabilities = new DesiredCapabilities();
-	 * capabilities.setPlatform(Platform.WIN11); } }
-	 */
+	private static WebDriver driver;
+    private static DesiredCapabilities capabilities = new DesiredCapabilities();
 
-	
-	private static final Function<String, WebDriver> CHROME_LOCAL = (d) -> new ChromeDriver();
-	private static final Function<WebDriver, CurrencyConfig> EUR = (d) -> new EuroCurrency(d);
-	private static final Function<WebDriver, CurrencyConfig> GBP = (d) -> new PoundCurrency(d);
-	private static final Map<String, Function<WebDriver, CurrencyConfig>> MAP = new HashMap<String, Function<WebDriver, CurrencyConfig>>();
+    // Predicates to determine environment
+    private static final Predicate<String> IS_LOCAL = env -> env.equalsIgnoreCase("local");
+    private static final Predicate<String> IS_REMOTE = env -> env.equalsIgnoreCase("remote");
 
-	static {
-		MAP.put("EUR", EUR);
-		MAP.put("USD", USD);
-		MAP.put("GBP", GBP);
-	}
+    // Local browser initialization
+    private static final Function<String, WebDriver> LOCAL_CHROME = (d) -> new ChromeDriver();
+    private static final Function<String, WebDriver> LOCAL_FIREFOX = (d) -> new FirefoxDriver();
+    private static final Function<String, WebDriver> LOCAL_SAFARI = (d) -> new SafariDriver();
+    private static final Map<String, Function<String, WebDriver>> LOCAL_MAP = new HashMap<>();
 
-	
-	
-	
-	private static DesiredCapabilities capabilities = new DesiredCapabilities();
+    // Remote browser capabilities setup
+    private static final BiConsumer<DesiredCapabilities, String> REMOTE_CHROME = (cap, browser) -> cap.setBrowserName("chrome");
+    private static final BiConsumer<DesiredCapabilities, String> REMOTE_FIREFOX = (cap, browser) -> cap.setBrowserName("firefox");
+    private static final BiConsumer<DesiredCapabilities, String> REMOTE_SAFARI = (cap, browser) -> cap.setBrowserName("safari");
+    private static final Map<String, BiConsumer<DesiredCapabilities, String>> REMOTE_MAP = new HashMap<>();
 
-	
-	public static final Consumer<String> CHROME = (env) -> {
-		Predicate<String> isLocal = (environment) -> "chrome".equalsIgnoreCase(environment);
-		if (isLocal.test(env)) {
-			new ChromeDriver();
-		} else {
-			capabilities.setBrowserName("chrome");
-		}
-	};
-	public static final Consumer<String> EDGE = (env) -> {
-		Predicate<String> isLocal = (environment) -> "edge".equalsIgnoreCase(environment);
-		if (isLocal.test(env)) {
-			new EdgeDriver();
-		} else {
-			capabilities.setBrowserName("MicrosoftEdge");
-		}
-	};
-	public static final Consumer<String> FIREFOX = (env) -> {
-		Predicate<String> isLocal = (environment) -> "firefox".equalsIgnoreCase(environment);
-		if (isLocal.test(env)) {
-			new FirefoxDriver();
-		} else {
-			capabilities.setBrowserName("FireFox");
-		}
-	};
-	
-	
-	
-	
+    // Platform settings
+    public static final Consumer<String> WIN = (s) -> capabilities.setPlatform(Platform.WIN11);
+    public static final Consumer<String> MAC = (s) -> capabilities.setPlatform(Platform.MAC);
+    private static final Map<String, Consumer<String>> PLATFORM_MAP = new HashMap<>();
 
-	
-	
-	public static final Consumer<String> WIN = (S)-> capabilities.setPlatform(Platform.WIN11);
-	public static final Consumer<String> MAC = (S)-> capabilities.setPlatform(Platform.WIN11);
+    static {
+        // Populate local browser map
+        LOCAL_MAP.put("chrome", LOCAL_CHROME);
+        LOCAL_MAP.put("firefox", LOCAL_FIREFOX);
+        LOCAL_MAP.put("safari", LOCAL_SAFARI);
 
-	
+        // Populate remote browser map
+        REMOTE_MAP.put("chrome", REMOTE_CHROME);
+        REMOTE_MAP.put("firefox", REMOTE_FIREFOX);
+        REMOTE_MAP.put("safari", REMOTE_SAFARI);
 
-	public static WebDriver getdriver(String env, String browser) {
-		return new ChromeDriver();
-	}
+        // Populate platform map
+        PLATFORM_MAP.put("win", WIN);
+        PLATFORM_MAP.put("mac", MAC);
+    }
 
+    public static WebDriver getDriver(String env, String browser, String platform) throws MalformedURLException {
+    	  String lowerCaseEnv = env.toLowerCase();
+          String lowerCaseBrowser = browser.toLowerCase();
+
+          // Apply platform capabilities
+          Consumer<String> platformConsumer = PLATFORM_MAP.get(platform.toLowerCase());
+          if (platformConsumer != null && lowerCaseEnv.equals("remote")) { 
+              platformConsumer.accept(platform);
+          } else {
+              throw new IllegalArgumentException("Platform not supported: " + platform);
+          }
+
+          // Traditional switch statement
+          switch (lowerCaseEnv) {
+              case "local":
+                  Function<String, WebDriver> localDriverFunction = LOCAL_MAP.get(lowerCaseBrowser);
+                  if (localDriverFunction != null) {
+                      return localDriverFunction.apply(browser);
+                  }
+                  break;
+
+              case "remote":
+                  BiConsumer<DesiredCapabilities, String> remoteDriverConsumer = REMOTE_MAP.get(lowerCaseBrowser);
+                  if (remoteDriverConsumer != null) {
+                      remoteDriverConsumer.accept(capabilities, browser);
+                      return new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capabilities);
+                  }
+                  break;
+
+          }
+		return driver;    
+      }
+    
 }

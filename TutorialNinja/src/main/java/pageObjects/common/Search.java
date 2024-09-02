@@ -23,7 +23,7 @@ public class Search extends BasePomClass{
 		searchBox.sendKeys(search);
 	}
 	public void clickSearch(){
-		searchBox.click();
+		searchButton.click();
 	}
 	
 	@Override

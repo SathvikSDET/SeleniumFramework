@@ -5,15 +5,24 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import pageObjects.common.MyAccount;
+import pageObjects.common.Products;
 import pageObjects.common.Search;
 
-public class MainPage  {
+public class MainPage extends BasePomClass {
 	
 	private MyAccount myAccount;
 	private Search search;
+	private Products products;
+	
+	
+	@FindBy(xpath = "//div[@class='alert alert-success alert-dismissible']")
+	WebElement successMessage;
 
 	public MainPage(WebDriver driver) {
-		this.myAccount = PageFactory.initElements(driver, MyAccount.class);	 
+		super(driver);
+		this.myAccount = PageFactory.initElements(driver, MyAccount.class);	
+		this.search= PageFactory.initElements(driver, Search.class);	
+		this.products =new Products(driver);
 	}
 
 	public MyAccount getMyAccount() {
@@ -22,5 +31,19 @@ public class MainPage  {
 	
 	public Search getSearch() {
 		return search;
+	}
+	
+	public Products getProducts() {
+		return products;
+	}
+
+	public String getSuccuesMessage() {
+		return successMessage.getText();
+	}
+
+	
+	@Override
+	public boolean isDisplayed() {
+		return successMessage.isDisplayed();
 	}
 }

@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 
 import pageObjects.common.currency.CurrencyConfig;
 import pageObjects.common.currency.CurrencyFactory;
+import utilites.BaseClass;
 import utilites.Dataprovider;
 
 public class T003_CurrencyCheck extends BaseClass {

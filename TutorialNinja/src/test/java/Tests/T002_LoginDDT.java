@@ -9,6 +9,7 @@ import pageObjects.Login;
 import pageObjects.MainPage;
 import pageObjects.MyAccountPage;
 import pageObjects.common.MyAccount;
+import utilites.BaseClass;
 import utilites.Dataprovider;
 
 public class T002_LoginDDT extends BaseClass {

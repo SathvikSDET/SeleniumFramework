@@ -10,9 +10,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
 
 public class TC004_DiseperItems {
-
-	
-	//https://bootstrapdemos.wrappixel.com/adminpro/dist/main/app-notes.html
 	
 	@Test
 	void CountHowManyTiles() {

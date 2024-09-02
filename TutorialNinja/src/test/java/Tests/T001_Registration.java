@@ -2,13 +2,12 @@ package Tests;
 
 import org.testng.annotations.Test;
 import org.testng.AssertJUnit;
-import org.testng.Assert;
-import org.testng.annotations.Test;
 
 import pageObjects.MainPage;
 import pageObjects.RegisterAccount;
 import pageObjects.RegistrationCreated;
 import pageObjects.common.MyAccount;
+import utilites.BaseClass;
 
 public class T001_Registration extends BaseClass{
 	

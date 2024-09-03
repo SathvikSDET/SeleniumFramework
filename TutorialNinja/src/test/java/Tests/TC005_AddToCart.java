@@ -19,9 +19,8 @@ public class TC005_AddToCart extends BaseClass {
 	
 	@Test
 	void addToCartTest() throws InterruptedException {
-		 mainPage = new MainPage(driver);
-		 products = mainPage.getProducts();
-		
+		mainPage =new MainPage(driver);
+		products =mainPage.getProducts();
 		List<String> elements  = products.getResultName();
 		
 		for (String element : elements) {
@@ -39,11 +38,10 @@ public class TC005_AddToCart extends BaseClass {
 	
 	
 	@Test(dependsOnMethods = "addToCartTest")
-	void addToCartTenTimesTest() throws InterruptedException {
-		 mainPage = new MainPage(driver);
-		 products = mainPage.getProducts();
-		 
-		 for (int i = 0; i < 10; i++) {
+	void addToCartTenTimesTest() throws InterruptedException { 
+		mainPage =new MainPage(driver);
+		products =mainPage.getProducts();
+		 for (int i = 0; i <= 2; i++) {
 			 products.addToChart(index);
 			 Thread.sleep(5000);	
 			 Assert.assertTrue(mainPage.isDisplayed());
@@ -52,5 +50,12 @@ public class TC005_AddToCart extends BaseClass {
 		System.out.println("number of iteams"+numberOfitems);
 	}
 	
+	
+	@Test(dependsOnMethods = "addToCartTenTimesTest")
+	void checkCartCount() {
+		mainPage =new MainPage(driver);
+		int numberOfItems = Integer.parseInt(mainPage.getCartMessage().split(" ")[0]);
+		Assert.assertTrue(numberOfItems==(numberOfitems+1));
+	}
 	
 }

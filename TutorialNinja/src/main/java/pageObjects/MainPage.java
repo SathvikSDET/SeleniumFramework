@@ -17,6 +17,9 @@ public class MainPage extends BasePomClass {
 	
 	@FindBy(xpath = "//div[@class='alert alert-success alert-dismissible']")
 	WebElement successMessage;
+	
+	@FindBy(xpath = "(//span[@id='cart-total'])[1]")
+	WebElement mainPageCart;
 
 	public MainPage(WebDriver driver) {
 		super(driver);
@@ -39,6 +42,13 @@ public class MainPage extends BasePomClass {
 
 	public String getSuccuesMessage() {
 		return successMessage.getText();
+	}
+	
+	public String getCartMessage() {
+		return mainPageCart.getText();
+	}
+	public void clickCartMainPage() {
+		 mainPageCart.click();
 	}
 
 	

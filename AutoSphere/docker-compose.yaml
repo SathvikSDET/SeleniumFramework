@@ -1,0 +1,12 @@
+version: "3"
+services:
+  vendor-portal:
+    image: sathvik1998/selenium
+    environment:
+    - BROWSER=${BROWSER}
+    - HUB_HOST=hub    
+    - THREAD_COUNT=3
+    - TEST_SUITE=CurrencyCheck.xml
+    volumes:
+    - ./output/portal:/home/selenium-docker/test-output
+  

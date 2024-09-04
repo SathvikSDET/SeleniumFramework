@@ -31,6 +31,9 @@ The plan is to Dockerize the framework and run it on AWS. Here’s what it cover
 - Docker
 
 
+##Docker Image
+https://hub.docker.com/layers/ssathvik1998/selenium/latest/images/sha256-b3031f04c9930d97c39ffa14a9495285d7261e626f9409bde72c9b759c0d166d?context=repo
+
 ## To build run :sh runner.sh
 
 

@@ -2,8 +2,10 @@ package web.utilites;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 import org.testng.annotations.DataProvider;
+import org.testng.collections.Maps;
 
 import web.Utilities.ExcelUtils;
 
@@ -38,5 +40,25 @@ public class Dataprovider {
 	                
 	        };
 	    }
+	
+	@DataProvider(name="Payment")
+	 public Object[][] getPayment(){
+		
+		Map<String, String> cheque = Maps.newHashMap();
+		cheque.put("PayeeName", "1231231231");
+		
+		Map<String, String> paypal = Maps.newHashMap();
+		paypal.put("paypalnum", "1231231231");
+     
+     
+		
+	        return new Object[][]{
+	        	{"cheque",cheque},
+	        	{"paypal",paypal}    
+	        };
+	    }
+	
+	
+	
 	
 }

@@ -15,8 +15,21 @@ public class RegistrationCreated extends BasePomClass {
 		return msgConfirmation.isDisplayed();
 	}
 
+	@FindBy(xpath = "//a[normalize-space()='Continue']")
+	WebElement continuebutton;
+	
+	
+	
 	@FindBy(xpath = "//h1[normalize-space()='Your Account Has Been Created!']")
 	WebElement msgConfirmation;
+	
+
+	
+	
+	public void clickContinue() {
+		continuebutton.click();
+	}
+	
 
 	public String getConfirmationMsg() {
 	try {

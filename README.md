@@ -5,6 +5,9 @@ This project demonstrates a Hybrid Framework with Page Object Model (POM) using 
 I’ve used most design patterns to build this project production-ready. 
 The plan is to Dockerize the framework and run it on AWS. Here’s what it covers:
 
+
+Demo Web: https://tutorialsninja.com/demo/index.php?route=common/home
+
 ## Key Features
 
 - **Maven Project Setup:** Configure `pom.xml` with dependencies.

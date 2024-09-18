@@ -7,6 +7,7 @@ The plan is to Dockerize the framework and run it on AWS. Here’s what it cover
 
 
 Demo Web: https://tutorialsninja.com/demo/index.php?route=common/home
+API Doc: https://petstore.swagger.io/v2
 
 ## Key Features
 

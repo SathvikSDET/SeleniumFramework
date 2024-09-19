@@ -1,6 +1,6 @@
 # Automation Framework - E-commerce Domain
 
-Hi, I’m Sathvik, an SDET in the automotive domain. 
+Hi, I’m Sathvik. 
 This project demonstrates a Hybrid Framework with Page Object Model (POM) using Selenium. 
 I’ve used most design patterns to build this project production-ready. 
 The plan is to Dockerize the framework and run it on AWS. Here’s what it covers:
